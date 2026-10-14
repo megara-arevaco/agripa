@@ -184,8 +184,9 @@ Agripa settings and browser data in Local AppData. For ZIP packaging, see
 
 The current GitHub Actions workflow builds an unsigned self-contained x64 executable
 and installer and uploads them as a workflow artifact. It does not create a GitHub
-Release or sign the binary. To distribute a build, review and test the artifact on
-Windows before publishing it. SmartScreen may warn because the installer is unsigned.
+Release for branch builds. Pushing a version tag such as `v0.1.0` publishes a GitHub
+Release with the installer, portable ZIP, and SHA-256 checksums. Binaries are unsigned;
+SmartScreen may warn when running the installer.
 
 ## Data locations and privacy
 
