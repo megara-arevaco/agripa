@@ -574,11 +574,12 @@ public partial class MainWindow : Window
     {
         double normalized = OverlaySettings.NormalizeOpacity(opacity);
         Opacity = 1.0; // Keep toolbar, buttons, and state text readable; fade only browser surfaces.
-        if (_browser is not null) _browser.Opacity = normalized;
+        BrowserHost.Opacity = normalized;
         foreach (Window popup in _browserPopups)
         {
             popup.Opacity = 1.0;
-            if (popup.Tag is Microsoft.Web.WebView2.Wpf.WebView2CompositionControl view) view.Opacity = normalized;
+            if (popup.Tag is Microsoft.Web.WebView2.Wpf.WebView2CompositionControl view && view.Parent is UIElement surface)
+                surface.Opacity = normalized;
         }
     }
 

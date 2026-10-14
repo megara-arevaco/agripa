@@ -1,6 +1,18 @@
 # Distribución local en Windows
 
-Este flujo crea un ZIP local sin credenciales de firma, servicios de pago ni publicación en una tienda. No crea un instalador, no firma el ejecutable y no configura actualizaciones automáticas.
+El flujo ZIP de esta guía crea un paquete local sin credenciales de firma, servicios de pago ni publicación en una tienda. No crea un instalador, no firma el ejecutable y no configura actualizaciones automáticas.
+
+## Instalador de Windows
+
+Para generar un instalador x64 por usuario, instala .NET 8 SDK e Inno Setup 6 en Windows y ejecuta desde PowerShell:
+
+```powershell
+.\scripts\build-installer.ps1
+# Para asignar la versión del paquete:
+.\scripts\build-installer.ps1 -Version 0.1.0
+```
+
+El resultado es `artifacts/installer/Agripa-Setup-win-x64.exe`. Instala en `%LOCALAPPDATA%\Programs\Agripa`, crea un acceso directo en Inicio y ofrece uno opcional en el escritorio. Se puede instalar sin privilegios de administrador. La desinstalación quita los archivos y accesos directos de la aplicación, pero conserva ajustes y cookies en `%LOCALAPPDATA%\GameChatOverlay`. El instalador está sin firmar, no instala WebView2 Runtime y no configura actualizaciones automáticas; SmartScreen puede mostrar una advertencia.
 
 ## Requisitos
 

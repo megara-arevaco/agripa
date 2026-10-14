@@ -36,7 +36,7 @@ public partial class MainWindow
     {
         if (_exiting || _browserInitializing || (_browser is not null && !_browserFailed)) return;
         _browserInitializing = true;
-        BrowserReloadButton.IsEnabled = false;
+        BrowserReloadMenuItem.IsEnabled = false;
         BrowserNotice.Visibility = Visibility.Visible;
         BrowserNoticeText.Text = Text("PreparingBrowser");
         InstallBrowserButton.Visibility = Visibility.Collapsed;
@@ -52,10 +52,10 @@ public partial class MainWindow
             if (_exiting) return;
             var view = new WebView2CompositionControl
             {
-                DefaultBackgroundColor = System.Drawing.Color.FromArgb(0, 25, 29, 28),
-                Opacity = _settings.Opacity
+                DefaultBackgroundColor = System.Drawing.Color.FromArgb(0, 25, 29, 28)
             };
             _browser = view;
+            BrowserHost.Opacity = _settings.Opacity;
             BrowserHost.Children.Add(view);
             await view.EnsureCoreWebView2Async(_browserEnvironment);
             if (_exiting || _browser != view) return;
@@ -106,7 +106,7 @@ public partial class MainWindow
         finally
         {
             _browserInitializing = false;
-            if (!_exiting) BrowserReloadButton.IsEnabled = true;
+            if (!_exiting) BrowserReloadMenuItem.IsEnabled = true;
         }
     }
 
@@ -140,9 +140,11 @@ public partial class MainWindow
         var view = new WebView2CompositionControl();
         var address = new TextBox { IsReadOnly = true, Text = args.Uri, FontSize = 12 };
         var content = new DockPanel();
+        var browserSurface = new Grid { Opacity = _settings.Opacity };
+        browserSurface.Children.Add(view);
         DockPanel.SetDock(address, Dock.Top);
         content.Children.Add(address);
-        content.Children.Add(view);
+        content.Children.Add(browserSurface);
         var popup = new Window
         {
             Title = Text("BrowserWindowTitle"), Width = 600, Height = 700,
@@ -158,7 +160,6 @@ public partial class MainWindow
         {
             popup.Show();
             if (_clickThrough) SetWindowClickThrough(new WindowInteropHelper(popup).Handle, true);
-            view.Opacity = _settings.Opacity;
             await view.EnsureCoreWebView2Async(_browserEnvironment);
             if (_exiting || !_browserPopups.Contains(popup)) return;
             ConfigureBrowser(view);
@@ -191,7 +192,7 @@ public partial class MainWindow
             ((WebView2CompositionControl)popup.Tag).Focus();
         }
         else if (_browser is not null && !_browserFailed) _browser.Focus();
-        else BrowserReloadButton.Focus();
+        else BrowserMoreButton.Focus();
     }
 
     private bool BrowserPopupHasFocus() => _browserPopups.Exists(popup =>

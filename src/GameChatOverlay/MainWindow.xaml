@@ -35,7 +35,7 @@
        <Button.ContextMenu>
         <ContextMenu x:Name="BrowserMoreMenu" Background="{StaticResource SurfaceBrush}" Foreground="{StaticResource InkBrush}" BorderBrush="{StaticResource BorderBrush}">
          <MenuItem Header="{DynamicResource Home}" Click="BrowserHome_Click"/>
-         <MenuItem Header="{DynamicResource Reload}" Click="BrowserReload_Click"/>
+         <MenuItem x:Name="BrowserReloadMenuItem" Header="{DynamicResource Reload}" Click="BrowserReload_Click"/>
          <MenuItem Header="{DynamicResource OpenExternal}" Click="BrowserExternal_Click"/>
         </ContextMenu>
        </Button.ContextMenu>

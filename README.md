@@ -136,8 +136,8 @@ capture, overlay exclusion, cropping, clipboard contents, and pasting an image i
 Do not interact with the keyboard while the test runs. It does not validate real
 ChatGPT sign-in or compatibility with a particular game.
 
-The GitHub Actions workflow builds and publishes the self-contained x64 artifact on
-Windows. It does not run the interactive UI test, which requires an unlocked desktop.
+The GitHub Actions workflow builds the self-contained x64 application and a Windows
+installer. It does not run the interactive UI test, which requires an unlocked desktop.
 
 ## Building Windows executables
 
@@ -173,14 +173,19 @@ agripa/
 └── README.md                  Project guide
 ```
 
-For credential-free local Windows packaging, see [docs/local-distribution.md](docs/local-distribution.md) and `scripts/package-local.ps1`.
+For a Windows installer, run `scripts/build-installer.ps1` on Windows with .NET 8 SDK
+and Inno Setup 6 installed. It creates `artifacts/installer/Agripa-Setup-win-x64.exe`.
+The installer is per-user, unsigned, and does not include WebView2 Runtime. It adds
+Start menu shortcuts and offers an optional desktop shortcut; uninstalling preserves
+Agripa settings and browser data in Local AppData. For ZIP packaging, see
+[docs/local-distribution.md](docs/local-distribution.md) and `scripts/package-local.ps1`.
 
 ## Publishing a release
 
 The current GitHub Actions workflow builds an unsigned self-contained x64 executable
-and uploads it as a workflow artifact. It does not create a GitHub Release or sign the
-binary. To distribute a build, review and test the artifact on Windows before
-publishing it. Do not treat the workflow artifact as a signed production installer.
+and installer and uploads them as a workflow artifact. It does not create a GitHub
+Release or sign the binary. To distribute a build, review and test the artifact on
+Windows before publishing it. SmartScreen may warn because the installer is unsigned.
 
 ## Data locations and privacy
 
