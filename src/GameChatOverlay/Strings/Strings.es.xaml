@@ -101,4 +101,10 @@
  <sys:String x:Key="WindowCopied">Ventana capturada. Pulsa Ctrl+V en ChatGPT para adjuntar la imagen.</sys:String>
  <sys:String x:Key="MonitorCopied">Monitor capturado. Pulsa Ctrl+V en ChatGPT para adjuntar la imagen.</sys:String>
  <sys:String x:Key="CaptureError">No se pudo copiar la captura. Vuelve a intentarlo con el juego visible.</sys:String>
+ <sys:String x:Key="CaptureLabel">Capturar</sys:String>
+ <sys:String x:Key="SettingsIntro">Tu panel, a tu ritmo.</sys:String>
+ <sys:String x:Key="MoreSolid">Más sólido</sys:String>
+ <sys:String x:Key="MoreTransparent">Más transparente</sys:String>
+ <sys:String x:Key="CancelChanges">Cancelar</sys:String>
+ <sys:String x:Key="SaveChanges">Guardar cambios</sys:String>
 </ResourceDictionary>

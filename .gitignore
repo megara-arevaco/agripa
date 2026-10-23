@@ -6,3 +6,4 @@ artifacts/
 *.suo
 .codex/
 .tools/
+node_modules/

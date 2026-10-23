@@ -52,9 +52,10 @@ jobs:
           GH_REPO: ${{ github.repository }}
           RELEASE_TAG: ${{ github.ref_name }}
         run: |
-          gh release create "$RELEASE_TAG" \
+          if ! gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release create "$RELEASE_TAG" --verify-tag --title "Agripa $RELEASE_TAG" --notes "Agripa desktop builds. Unsigned binaries; Windows requires Microsoft Edge WebView2 Runtime." || gh release view "$RELEASE_TAG" >/dev/null
+          fi
+          gh release upload "$RELEASE_TAG" \
             release/Agripa-Setup-win-x64.exe \
             release/Agripa-win-x64.zip \
-            release/SHA256SUMS \
-            --verify-tag --title "Agripa $RELEASE_TAG" \
-            --notes "Windows x64 installer and portable ZIP. Unsigned builds; Microsoft Edge WebView2 Runtime is required."
+            release/SHA256SUMS

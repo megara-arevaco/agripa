@@ -1,0 +1,46 @@
+{
+  "name": "agripa-linux",
+  "productName": "Agripa",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Panel de ChatGPT sobre tus juegos para Linux",
+  "author": "Baul",
+  "main": "main.cjs",
+  "desktopName": "dev.megara.agripa.desktop",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test ../../tests/linux-*.test.cjs",
+    "smoke": "electron . --smoke-test",
+    "dist": "electron-builder --linux AppImage deb"
+  },
+  "devDependencies": {
+    "electron": "45.0.0",
+    "electron-builder": "26.15.3"
+  },
+  "build": {
+    "appId": "dev.megara.agripa",
+    "directories": {
+      "output": "../../artifacts/linux"
+    },
+    "files": [
+      "*.cjs",
+      "*.html",
+      "*.css",
+      "*.js",
+      "assets/**"
+    ],
+    "linux": {
+      "executableName": "agripa",
+      "icon": "assets/agripa.png",
+      "category": "Utility",
+      "desktop": {
+        "entry": {
+          "Name": "Agripa"
+        }
+      },
+      "maintainer": "Baul",
+      "syncDesktopName": true
+    }
+  },
+  "homepage": "https://github.com/megara-arevaco/agripa"
+}

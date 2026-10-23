@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:"><title>Agripa</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header>
+  <img src="assets/agripa.png" alt="" width="26" height="26"><strong>Agripa</strong><span class="spacer"></span>
+  <button class="icon-button" id="compact-toggle" data-action="compact" title="Compactar" aria-label="Compactar" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M4 10h16"/></svg></button>
+  <button class="icon-button" data-action="hide" data-i18n-label="hide" title="Ocultar" aria-label="Ocultar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+</header>
+<nav aria-label="Agripa">
+  <button class="capture-button" data-action="capture" title="Capturar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 6 2-2h4l2 2h4v14H4V6Z"/><circle cx="12" cy="12" r="3"/></svg><span data-i18n="capture">Capturar</span></button>
+  <button class="icon-button" data-action="crop" data-i18n-label="crop" title="Recortar captura" aria-label="Recortar captura"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v14h14M3 7h14v14"/></svg></button>
+  <button class="site-name" id="game-menu" data-action="game-menu" aria-haspopup="menu" data-i18n-label="profileMenu"><span id="active-profile">ChatGPT</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 10 4 4 4-4"/></svg></button><span class="spacer"></span>
+  <button class="icon-button" id="settings-toggle" data-i18n-label="settings" title="Ajustes" aria-label="Ajustes" aria-expanded="false" aria-controls="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/></svg></button>
+  <button class="icon-button" data-action="tools" data-i18n-label="tools" title="Más opciones" aria-label="Más opciones" aria-haspopup="menu"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg></button>
+</nav>
+<section id="settings" aria-labelledby="settings-title" hidden>
+  <div class="settings-scroll">
+    <h1 id="settings-title" data-i18n="settings">Ajustes</h1><p class="intro" data-i18n="intro">Tu panel, a tu ritmo.</p>
+    <section class="setting-group" aria-labelledby="appearance-title">
+      <h2 id="appearance-title" data-i18n="appearance">Apariencia</h2>
+      <label for="opacity"><span data-i18n="opacity">Opacidad del panel</span><output id="opacity-value" for="opacity">85 %</output></label>
+      <p class="help" id="opacity-help" data-i18n="opacityHelp"></p>
+      <input id="opacity" type="range" min="30" max="100" step="5" value="85" aria-describedby="opacity-help">
+      <div class="range-labels"><span data-i18n="transparent">Más transparente</span><span data-i18n="solid">Más sólido</span></div>
+      <div class="language-row"><label for="language" data-i18n="language">Idioma</label><select id="language"><option value="es">Español</option><option value="en">English</option></select></div>
+      <div class="language-row"><label for="capture-delay" data-i18n="captureDelay"></label><select id="capture-delay"><option value="0" data-i18n="noDelay"></option><option value="3">3 s</option><option value="5">5 s</option></select></div>
+      <label class="passthrough-row"><input id="layout-lock" type="checkbox"><span data-i18n="layoutLock"></span></label>
+    </section>
+    <section class="setting-group" aria-labelledby="shortcuts-title">
+      <h2 id="shortcuts-title" data-i18n="shortcuts">Atajos de teclado</h2>
+      <p class="help" id="shortcuts-help" data-i18n="shortcutsHelp"></p>
+      <div id="shortcuts" class="shortcuts" aria-describedby="shortcuts-help"></div>
+      <label class="passthrough-row"><input id="passthrough" type="checkbox"><span data-i18n="passthrough">Dejar pasar clics</span></label>
+      <p class="help" data-i18n="recoveryHelp"></p>
+    </section>
+    <section class="setting-group" aria-labelledby="profiles-title">
+      <h2 id="profiles-title" data-i18n="profiles">Perfiles por juego</h2>
+      <p class="help" data-i18n="profilesHelp"></p>
+      <label for="profile-name" class="field-label" data-i18n="profileName">Nombre del perfil</label>
+      <input type="text" id="profile-name" maxlength="32" autocomplete="off">
+      <div class="profile-row"><select id="profile-select" data-i18n-aria="profiles"></select><button id="profile-apply" data-i18n="profileApply">Aplicar</button></div>
+      <details class="profile-context" open>
+        <summary data-i18n="profileContext"></summary>
+        <label for="profile-game" class="field-label" data-i18n="gameTitle"></label><input id="profile-game" type="text" maxlength="120" autocomplete="off">
+        <div class="language-row"><label for="answer-language" data-i18n="answerLanguage"></label><select id="answer-language"><option value="es">Español</option><option value="en">English</option></select></div>
+        <div class="language-row"><label for="spoilers" data-i18n="spoilers"></label><select id="spoilers"><option value="none" data-i18n="spoilersNone"></option><option value="hints" data-i18n="spoilersHints"></option><option value="full" data-i18n="spoilersFull"></option></select></div>
+        <label for="game-progress" class="field-label" data-i18n="gameProgress"></label><textarea id="game-progress" rows="2" maxlength="1500" aria-describedby="game-progress-help"></textarea><p class="help" id="game-progress-help" data-i18n="gameProgressHelp"></p>
+        <label for="prompt-instructions" class="field-label" data-i18n="promptInstructions"></label><textarea id="prompt-instructions" rows="3" maxlength="3000" aria-describedby="prompt-instructions-help"></textarea><p class="help" id="prompt-instructions-help" data-i18n="promptInstructionsHelp"></p>
+        <label for="quick-prompts" class="field-label" data-i18n="quickPrompts"></label><textarea id="quick-prompts" rows="4" maxlength="5000" aria-describedby="quick-prompts-help"></textarea><p class="help" id="quick-prompts-help" data-i18n="quickPromptsHelp"></p>
+        <details class="prompt-preview"><summary data-i18n="promptPreview"></summary><textarea id="prompt-preview" readonly rows="8" data-i18n-aria="promptPreview"></textarea></details>
+        <p class="help" data-i18n="promptHelp"></p><button id="copy-context" class="context-copy" data-i18n="copyContext"></button>
+      </details>
+      <div class="profile-buttons"><button id="profile-save" data-i18n="profileSave">Guardar perfil actual</button><button id="profile-delete" data-i18n="profileDelete">Eliminar</button></div>
+      <p class="help" data-i18n="profileImmediate"></p>
+    </section>
+    <section class="setting-group" aria-labelledby="updates-title">
+      <h2 id="updates-title" data-i18n="updates"></h2><p class="help"><span data-i18n="currentVersion"></span>: <span id="app-version"></span></p>
+      <label class="passthrough-row"><input id="auto-check-updates" type="checkbox"><span data-i18n="autoCheckUpdates"></span></label>
+      <p id="update-status" class="help" role="status" aria-live="polite"></p>
+      <progress id="update-progress" max="100" value="0" hidden data-i18n-aria="updateProgress"></progress>
+      <div class="profile-buttons"><button id="update-check" data-i18n="updateCheck"></button><button id="update-download" class="primary" data-i18n="updateDownload" hidden></button><button id="update-cancel" data-i18n="cancel" hidden></button><button id="update-reveal" data-i18n="updateReveal" hidden></button></div>
+      <p class="help" data-i18n="updateHelp"></p><button class="link-button" data-action="update-releases" data-i18n="updateReleases"></button>
+    </section>
+    <details><summary data-i18n="compatibility">Capturas y compatibilidad</summary><p data-i18n="captureHelp"></p><p data-i18n="waylandHelp"></p></details>
+    <button class="quit-button" data-action="quit" data-i18n="quit">Salir de Agripa</button>
+  </div>
+  <div class="settings-actions"><button id="cancel" data-i18n="cancel">Cancelar</button><button class="primary" id="save" data-i18n="save">Guardar cambios</button></div>
+</section>
+<footer><span class="status-dot" aria-hidden="true"></span><span id="status" role="status" aria-live="polite" data-i18n="loading">Cargando ChatGPT…</span></footer>
+<script src="i18n.js"></script><script src="shortcuts.js"></script><script src="profiles.js"></script><script src="renderer.js"></script>
+</body></html>

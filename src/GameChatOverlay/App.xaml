@@ -4,12 +4,12 @@
  ShutdownMode="OnExplicitShutdown">
  <Application.Resources>
   <!-- WPF uses sRGB; source palette is documented in DESIGN.md. -->
-  <SolidColorBrush x:Key="BackgroundBrush" Color="#191D1C"/>
-  <SolidColorBrush x:Key="SurfaceBrush" Color="#252B29"/>
-  <SolidColorBrush x:Key="BorderBrush" Color="#49534F"/>
-  <SolidColorBrush x:Key="InkBrush" Color="#F1F5F3"/>
-  <SolidColorBrush x:Key="MutedBrush" Color="#B5C2BC"/>
-  <SolidColorBrush x:Key="AccentBrush" Color="#A6E2CF"/>
+  <SolidColorBrush x:Key="BackgroundBrush" Color="#19201D"/>
+  <SolidColorBrush x:Key="SurfaceBrush" Color="#232E28"/>
+  <SolidColorBrush x:Key="BorderBrush" Color="#3B4B41"/>
+  <SolidColorBrush x:Key="InkBrush" Color="#EDF3EF"/>
+  <SolidColorBrush x:Key="MutedBrush" Color="#B1C2B7"/>
+  <SolidColorBrush x:Key="AccentBrush" Color="#A0D7BE"/>
   <Style TargetType="TextBlock">
    <Setter Property="Foreground" Value="{StaticResource InkBrush}"/>
    <Setter Property="TextWrapping" Value="Wrap"/>
@@ -18,14 +18,14 @@
    <Setter Property="Background" Value="{StaticResource SurfaceBrush}"/>
    <Setter Property="Foreground" Value="{StaticResource InkBrush}"/>
    <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
-   <Setter Property="Padding" Value="9,6"/>
+   <Setter Property="Padding" Value="12,6"/>
    <Setter Property="MinWidth" Value="36"/>
-   <Setter Property="MinHeight" Value="34"/>
+   <Setter Property="MinHeight" Value="32"/>
    <Setter Property="Cursor" Value="Hand"/>
    <Setter Property="Template">
     <Setter.Value>
      <ControlTemplate TargetType="Button">
-      <Border x:Name="ButtonBorder" CornerRadius="5" Background="{TemplateBinding Background}"
+      <Border x:Name="ButtonBorder" CornerRadius="6" Background="{TemplateBinding Background}"
        BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Padding="{TemplateBinding Padding}">
        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
       </Border>
@@ -38,6 +38,39 @@
      </ControlTemplate>
     </Setter.Value>
    </Setter>
+  </Style>
+  <Style x:Key="IconButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+   <Setter Property="Background" Value="Transparent"/><Setter Property="BorderBrush" Value="Transparent"/>
+   <Setter Property="Width" Value="32"/><Setter Property="MinWidth" Value="32"/><Setter Property="Height" Value="32"/><Setter Property="Padding" Value="6"/>
+  </Style>
+  <Style x:Key="SettingsButtonStyle" TargetType="Button" BasedOn="{StaticResource IconButtonStyle}">
+   <Style.Triggers><DataTrigger Binding="{Binding Visibility, ElementName=SettingsPanel}" Value="Visible"><Setter Property="Background" Value="{StaticResource SurfaceBrush}"/><Setter Property="Foreground" Value="{StaticResource AccentBrush}"/></DataTrigger></Style.Triggers>
+  </Style>
+  <Style x:Key="ExitButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+   <Setter Property="Background" Value="Transparent"/><Setter Property="BorderBrush" Value="Transparent"/><Setter Property="Foreground" Value="#E4B7B0"/><Setter Property="Padding" Value="0,6"/>
+  </Style>
+  <Style x:Key="BrowserAddressStyle" TargetType="TextBox">
+   <Setter Property="Foreground" Value="{StaticResource MutedBrush}"/><Setter Property="FontSize" Value="12"/>
+   <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="TextBox"><TextBlock Text="ChatGPT" Foreground="{TemplateBinding Foreground}" FontSize="{TemplateBinding FontSize}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/></ControlTemplate></Setter.Value></Setter>
+  </Style>
+  <Style TargetType="Slider">
+   <Setter Property="MinHeight" Value="24"/>
+   <Setter Property="Template"><Setter.Value>
+    <ControlTemplate TargetType="Slider">
+     <Grid x:Name="SliderSurface" Background="Transparent">
+      <Border Height="4" Background="{StaticResource BorderBrush}" CornerRadius="2" VerticalAlignment="Center"/>
+      <Track x:Name="PART_Track" Minimum="{TemplateBinding Minimum}" Maximum="{TemplateBinding Maximum}" Value="{Binding Value, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" IsDirectionReversed="{TemplateBinding IsDirectionReversed}">
+       <Track.DecreaseRepeatButton><RepeatButton Command="Slider.DecreaseLarge" Focusable="False"><RepeatButton.Template><ControlTemplate TargetType="RepeatButton"><Border Height="4" Background="{StaticResource AccentBrush}" CornerRadius="2"/></ControlTemplate></RepeatButton.Template></RepeatButton></Track.DecreaseRepeatButton>
+       <Track.IncreaseRepeatButton><RepeatButton Command="Slider.IncreaseLarge" Focusable="False"><RepeatButton.Template><ControlTemplate TargetType="RepeatButton"><Border Background="Transparent"/></ControlTemplate></RepeatButton.Template></RepeatButton></Track.IncreaseRepeatButton>
+       <Track.Thumb><Thumb Width="14" Height="14"><Thumb.Template><ControlTemplate TargetType="Thumb"><Ellipse Fill="{StaticResource AccentBrush}"/></ControlTemplate></Thumb.Template></Thumb></Track.Thumb>
+      </Track>
+     </Grid>
+     <ControlTemplate.Triggers>
+      <Trigger Property="IsEnabled" Value="False"><Setter TargetName="SliderSurface" Property="Opacity" Value="0.45"/></Trigger>
+      <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="SliderSurface" Property="Background" Value="{StaticResource SurfaceBrush}"/></Trigger>
+     </ControlTemplate.Triggers>
+    </ControlTemplate>
+   </Setter.Value></Setter>
   </Style>
   <Style TargetType="TextBox">
    <Setter Property="Background" Value="{StaticResource SurfaceBrush}"/>

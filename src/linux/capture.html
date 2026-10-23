@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:"><title>Agripa</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="capture.css"></head>
+<body class="capture-page">
+<main>
+  <div class="capture-heading"><div><h1 id="capture-title"></h1><p class="help" id="capture-instructions"></p></div><button id="capture-cancel"></button></div>
+  <div id="countdown" hidden><strong id="countdown-seconds"></strong><p id="countdown-help" class="help"></p></div>
+  <div id="sources" aria-label=""></div>
+  <div id="crop-editor" hidden>
+    <div class="annotation-toolbar" role="toolbar" id="annotation-tools" aria-label="">
+      <button data-tool="crop" aria-pressed="true"></button><button data-tool="arrow" aria-pressed="false"></button><button data-tool="rectangle" aria-pressed="false"></button><button data-tool="marker" aria-pressed="false"></button>
+      <select id="annotation-color" aria-label=""><option value="#f4c66c"></option><option value="#f08070"></option><option value="#a0d7be"></option></select>
+      <button id="annotation-undo" disabled></button><button id="annotation-clear" disabled></button>
+    </div><div class="canvas-area"><canvas id="crop-canvas" tabindex="0" role="img"></canvas></div><div class="crop-actions"><button id="capture-back"></button><span id="crop-size" role="status"></span><button id="crop-copy" class="primary" disabled></button></div></div>
+  <p id="capture-error" role="alert"></p>
+</main>
+<script src="i18n.js"></script><script src="capture-geometry.js"></script><script src="capture-renderer.js"></script>
+</body></html>

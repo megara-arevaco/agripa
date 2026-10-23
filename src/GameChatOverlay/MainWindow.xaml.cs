@@ -852,7 +852,7 @@ public partial class MainWindow : Window
             MinHeight = 0;
             ExpandedPanel.Visibility = Visibility.Collapsed;
             CompactPanel.Visibility = Visibility.Visible;
-            WindowFrame.Padding = new Thickness(5, 3, 5, 3);
+            WindowFrame.Padding = new Thickness(0);
             ResizeMode = ResizeMode.NoResize;
             double scale = NativeMethods.DpiScaleAt(_expandedBounds?.Left ?? 0, _expandedBounds?.Top ?? 0);
             int width = (int)Math.Ceiling(214 * scale);
@@ -865,7 +865,7 @@ public partial class MainWindow : Window
             _compactMode = false;
             CompactPanel.Visibility = Visibility.Collapsed;
             ExpandedPanel.Visibility = Visibility.Visible;
-            WindowFrame.Padding = new Thickness(14, 10, 14, 9);
+            WindowFrame.Padding = new Thickness(0);
             MinWidth = _expandedMinWidth > 0 ? _expandedMinWidth : 400;
             MinHeight = _expandedMinHeight > 0 ? _expandedMinHeight : 520;
             ResizeMode = ResizeMode.CanResize;
